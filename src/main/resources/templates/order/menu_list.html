@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="" method="post">
+    <h4>주문 음식</h4>
+    <th th:each="menu : ${menu_list}">
+        <h5 th:text="${menu.foodName}"></h5>
+    </th>
+    <h4>집주소를 알려주세요</h4>
+
+    <input type="submit" value="주문완료하기">
+</form>
+</body>
+</html>

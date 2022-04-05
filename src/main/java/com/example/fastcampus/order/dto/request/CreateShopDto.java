@@ -1,4 +1,4 @@
-package com.example.fastcampus.order.dto;
+package com.example.fastcampus.order.dto.request;
 
 import lombok.Data;
 
