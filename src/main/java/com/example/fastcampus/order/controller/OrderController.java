@@ -44,6 +44,7 @@ public class OrderController {
 //        ResponseEntity<?> response = getResponse(findMenuDtoList, Status.SUCCESS);
 //        return response;
         model.addAttribute("menu_list", findMenuDtoList);
+        model.addAttribute("shop", shopId);
         return "/order/menu_list";
 
     }
