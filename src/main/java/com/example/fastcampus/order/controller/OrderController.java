@@ -1,7 +1,9 @@
 package com.example.fastcampus.order.controller;
 
+import com.example.fastcampus.order.dto.ResponseOrderDto;
 import com.example.fastcampus.order.dto.request.CreateMenuDto;
 import com.example.fastcampus.order.dto.request.CreateShopDto;
+import com.example.fastcampus.order.dto.request.FormDto;
 import com.example.fastcampus.order.dto.response.ResponseMenuDto;
 import com.example.fastcampus.order.dto.response.ResponseShopDto;
 import com.example.fastcampus.order.service.OrderService;
@@ -45,7 +47,7 @@ public class OrderController {
 //        return response;
         model.addAttribute("menu_list", findMenuDtoList);
         model.addAttribute("shop", shopId);
-        return "/order/menu_list";
+        return "order/menu_list";
 
     }
     @PostMapping("/menus")
@@ -53,5 +55,20 @@ public class OrderController {
         ResponseMenuDto menu = orderService.createMenu(menuDto);
         ResponseEntity<?> response = getResponse(menu, Status.SUCCESS);
         return response;
+    }
+
+    @GetMapping("/order")
+    public String getOrder(Model model) {
+        List<ResponseOrderDto> findOrderDtoList = orderService.getOrderList();
+        model.addAttribute("order_list", findOrderDtoList);
+
+        return "order/order_list";
+    }
+    @PostMapping("/order")
+    public String createOrder(@ModelAttribute("form") FormDto formDto) {
+        ResponseOrderDto order = orderService.createOrder(formDto);
+//        ResponseEntity<?> response = getResponse(order, Status.SUCCESS);
+
+        return "redirect:order";
     }
 }

@@ -1,6 +1,7 @@
 package com.example.fastcampus.order.repository;
 
 import com.example.fastcampus.order.entity.Menu;
+import com.example.fastcampus.order.entity.Order;
 import com.example.fastcampus.order.entity.Shop;
 
 import java.util.List;
@@ -15,4 +16,7 @@ public interface OrderCustomRepository{
     Shop findShopById(Long shop);
 
     void saveMenu(Menu menu);
+
+    List<Order> findOrderAll();
+
 }

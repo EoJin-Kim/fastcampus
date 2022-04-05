@@ -1,6 +1,8 @@
 package com.example.fastcampus.order.repository;
 
 import com.example.fastcampus.order.entity.Menu;
+import com.example.fastcampus.order.entity.Order;
+import com.example.fastcampus.order.entity.QOrder;
 import com.example.fastcampus.order.entity.Shop;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +11,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.example.fastcampus.order.entity.QMenu.menu;
+import static com.example.fastcampus.order.entity.QOrder.order;
 import static com.example.fastcampus.order.entity.QShop.shop;
 
 @RequiredArgsConstructor
@@ -29,6 +32,13 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository{
                 .selectFrom(shop)
                 .where(shop.id.eq(id))
                 .fetchOne();
+    }
+
+    @Override
+    public List<Order> findOrderAll() {
+        return queryFactory
+                .selectFrom(order)
+                .fetch();
     }
 
     @Override

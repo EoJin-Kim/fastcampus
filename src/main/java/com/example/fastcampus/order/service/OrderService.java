@@ -1,10 +1,14 @@
 package com.example.fastcampus.order.service;
 
+import com.example.fastcampus.order.dto.ResponseOrderDto;
 import com.example.fastcampus.order.dto.request.CreateMenuDto;
 import com.example.fastcampus.order.dto.request.CreateShopDto;
+import com.example.fastcampus.order.dto.request.FormDto;
 import com.example.fastcampus.order.dto.response.ResponseMenuDto;
 import com.example.fastcampus.order.dto.response.ResponseShopDto;
+import com.example.fastcampus.order.entity.Food;
 import com.example.fastcampus.order.entity.Menu;
+import com.example.fastcampus.order.entity.Order;
 import com.example.fastcampus.order.entity.Shop;
 import com.example.fastcampus.order.repository.OrderDataRepository;
 import lombok.RequiredArgsConstructor;
@@ -51,5 +55,32 @@ public class OrderService {
 //        orderRepository.saveMenu(createMenu);
         ResponseMenuDto resonseMenuDto = ResponseMenuDto.createResonseMenuDto(createMenu);
         return resonseMenuDto;
+    }
+
+    public ResponseOrderDto createOrder(FormDto formDto) {
+//        String address = request.getParameter("address");
+        String address = formDto.getAddress();
+//        Long shopId = Long.parseLong(request.getParameter("shop"));
+        Long shopId = formDto.getShop();
+        Shop findShop = orderRepository.findShopById(shopId);
+//        String menuTotal = request.getParameter("menu");
+//        String[] menus = menuTotal.split(",");
+        Order createOrder = Order.createOrder(address, findShop);
+        List<String> menuList = formDto.getMenu();
+        menuList.stream()
+                .map(menu -> Food.createFood(createOrder,menu))
+                .forEach(food -> createOrder.getFoodList().add(food));
+
+        ResponseOrderDto responseOrderDto = ResponseOrderDto.createResponseOrderDto(createOrder);
+        return responseOrderDto;
+    }
+
+    public List<ResponseOrderDto> getOrderList() {
+        List<Order> orderAll = orderRepository.findOrderAll();
+        List<ResponseOrderDto> collect = orderAll.stream()
+                .map(order -> ResponseOrderDto.createResponseOrderDto(order))
+                .collect(Collectors.toList());
+        return collect;
+
     }
 }
