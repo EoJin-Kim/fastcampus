@@ -35,6 +35,14 @@ public class OrderCustomRepositoryImpl implements OrderCustomRepository{
     }
 
     @Override
+    public List<Order> findOrderByShopId(Long shopId) {
+        return queryFactory
+                .selectFrom(order)
+                .where(order.shop.id.eq(shopId))
+                .fetch();
+    }
+
+    @Override
     public List<Order> findOrderAll() {
         return queryFactory
                 .selectFrom(order)

@@ -19,4 +19,5 @@ public interface OrderCustomRepository{
 
     List<Order> findOrderAll();
 
+    List<Order> findOrderByShopId(Long shopId);
 }

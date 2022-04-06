@@ -11,12 +11,14 @@ import java.util.List;
 public class ResponseOrderDto {
 
     private Long shop;
+    private Long orderId;
     private LocalDateTime orderDate;
     private List<String> foodList;
     private Integer estimatedTime;
     private Boolean deliverFinish;
     public static ResponseOrderDto createResponseOrderDto(Order createOrder) {
         ResponseOrderDto responseOrderDto = new ResponseOrderDto();
+        responseOrderDto.setOrderId(createOrder.getId());
         responseOrderDto.setShop(createOrder.getShop().getId());
         responseOrderDto.setDeliverFinish(createOrder.getDeliverFinish());
         ArrayList<String> foodList = new ArrayList<>();

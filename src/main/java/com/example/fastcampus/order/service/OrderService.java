@@ -83,4 +83,18 @@ public class OrderService {
         return collect;
 
     }
+
+    public Order changeEstimatedTime(Long orderId, Integer estimatedTime) {
+        Order findOrder = orderRepository.findById(orderId).get();
+        findOrder.setEstimatedTime(estimatedTime);
+        return findOrder;
+    }
+
+    public List<ResponseOrderDto> getOrderByShopId(Long shopId) {
+        List<Order> orderAll = orderRepository.findOrderByShopId(shopId);
+        List<ResponseOrderDto> collect = orderAll.stream()
+                .map(order -> ResponseOrderDto.createResponseOrderDto(order))
+                .collect(Collectors.toList());
+        return collect;
+    }
 }

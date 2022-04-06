@@ -21,6 +21,7 @@
         <td th:if="${order.estimatedTime == -1}">
             <form action="/boss/timeinput" method="post">
                 <input type="number" name="estimatedTime">
+                <input type="hidden" name="orderId" th:value="${order.orderId}">
                 <input type="submit" value="예상시간 입력">
             </form>
 

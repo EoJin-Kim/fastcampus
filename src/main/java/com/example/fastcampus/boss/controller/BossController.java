@@ -1,6 +1,7 @@
 package com.example.fastcampus.boss.controller;
 
 import com.example.fastcampus.order.dto.response.ResponseOrderDto;
+import com.example.fastcampus.order.entity.Order;
 import com.example.fastcampus.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,16 +19,18 @@ import java.util.List;
 public class BossController {
 
     private final OrderService orderService;
-    @GetMapping("/timeinput")
-    public String getOrderList(Model model) {
-        List<ResponseOrderDto> findOrderDtoList = orderService.getOrderList();
+    @GetMapping("/orders/{shopId}")
+    public String getOrderList(Model model, @PathVariable Long shopId) {
+        List<ResponseOrderDto> findOrderDtoList = orderService.getOrderByShopId(shopId);
         model.addAttribute("order_list", findOrderDtoList);
         return "boss/order_list";
     }
 
     @PostMapping("/timeinput")
-    public String timeInput(@RequestParam Integer estimatedTime) {
+    public String timeInput(@RequestParam Integer estimatedTime,@RequestParam Long orderId) {
+        Order chageOrder = orderService.changeEstimatedTime(orderId, estimatedTime);
         log.info("{}",estimatedTime);
-        return null;
+        log.info("{}",orderId);
+        return "redirect:orders/"+chageOrder.getShop().getId();
     }
 }
