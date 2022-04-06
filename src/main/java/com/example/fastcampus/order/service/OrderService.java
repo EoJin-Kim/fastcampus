@@ -1,6 +1,6 @@
 package com.example.fastcampus.order.service;
 
-import com.example.fastcampus.order.dto.ResponseOrderDto;
+import com.example.fastcampus.order.dto.response.ResponseOrderDto;
 import com.example.fastcampus.order.dto.request.CreateMenuDto;
 import com.example.fastcampus.order.dto.request.CreateShopDto;
 import com.example.fastcampus.order.dto.request.FormDto;

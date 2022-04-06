@@ -28,10 +28,10 @@ public class Order {
     private String address;
 
     @Column(columnDefinition = "integer default -1")
-    private Integer estimatedTime;
+    private Integer estimatedTime = -1;
 
     @Column(columnDefinition = "boolean default false")
-    Boolean deliverFinish;
+    Boolean deliverFinish = false;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Food> foodList = new ArrayList<>();

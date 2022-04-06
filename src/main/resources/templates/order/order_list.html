@@ -5,9 +5,34 @@
     <title>Title</title>
 </head>
 <body>
-    <th th:each="order : ${order_list}">
-        <h5 th:text="${order.shop}"></h5>
-        <h5 th:text="${order.orderDate}"></h5>
-    </th>
+    <table>
+        <tr>
+            <th>주문시간</th>
+            <th>음식</th>
+            <th>배달 예상 시간</th>
+            <th>배달 완료 여부</th>
+        </tr>
+        <tr th:each="order : ${order_list}">
+            <td th:text="${order.orderDate}"></td>
+            <td>
+                <p th:each="food : ${order.foodList}" th:text="${food}">
+                </p>
+            </td>
+            <td th:if="${order.estimatedTime == -1}">
+                미정
+            </td>
+            <td th:unless="${order.estimatedTime == -1}" th:text="${order.estimatedTime}">
+
+            </td>
+
+            <td th:if="${order.deliverFinish == false}">
+                배송중
+            </td>
+            <td th:unless="${order.deliverFinish == false}">
+                완료
+            </td>
+        </tr>
+    </table>
+
 </body>
 </html>

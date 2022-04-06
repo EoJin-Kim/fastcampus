@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>주문시간</th>
+        <th>음식</th>
+        <th>배달 예상 시간</th>
+        <th>배달 완료 여부</th>
+    </tr>
+    <tr th:each="order : ${order_list}">
+        <td th:text="${order.orderDate}"></td>
+        <td>
+            <p th:each="food : ${order.foodList}" th:text="${food}">
+            </p>
+        </td>
+        <td th:if="${order.estimatedTime == -1}">
+            <form action="/boss/timeinput" method="post">
+                <input type="number" name="estimatedTime">
+                <input type="submit" value="예상시간 입력">
+            </form>
+
+        </td>
+        <td th:unless="${order.estimatedTime == -1}" th:text="${order.estimatedTime}">
+
+        </td>
+
+        <td th:if="${order.deliverFinish == false}">
+            배송중
+        </td>
+        <td th:unless="${order.deliverFinish == false}">
+            완료
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
