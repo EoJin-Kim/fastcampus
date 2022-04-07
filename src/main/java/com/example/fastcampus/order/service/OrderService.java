@@ -97,4 +97,11 @@ public class OrderService {
                 .collect(Collectors.toList());
         return collect;
     }
+
+    public void finishDelivery(Long orderId) {
+        Order findOrder = orderRepository.findById(orderId).get();
+        findOrder.setDeliverFinish(true);
+        return;
+
+    }
 }
