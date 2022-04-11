@@ -1,0 +1,11 @@
+version: '3'
+services:
+  spring:
+    container_name: spring
+    build: ./fastcampus
+    image: docker-spring/spring
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./fastcampus:/srv/docker-spring
